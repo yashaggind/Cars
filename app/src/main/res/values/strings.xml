@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">M-TRIBES</string>
+
+    <string name="google_map_api_key">AIzaSyBJ9LFqXYNtR5y8YizaWkEn7nM1VuYbitI</string>
+
+    <string name="error_message_network">Network error.Please check your Internet connection</string>
+
+
+</resources>
