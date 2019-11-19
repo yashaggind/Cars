@@ -49,6 +49,10 @@ android {
         }
     }
 
+    lintOptions{
+        disable 'SetTextI18n'
+    }
+
     dataBinding {
         enabled = true
     }

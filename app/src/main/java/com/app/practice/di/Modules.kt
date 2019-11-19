@@ -1,7 +1,7 @@
 package com.app.practice.di
 
 import com.app.practice.BuildConfig
-import com.app.practice.commons.utils.UiHelper
+import com.app.practice.commons.helper.UiHelper
 import com.app.practice.datasource.api.LocationApi
 import com.app.practice.datasource.api.createNetworkClient
 import com.app.practice.domain.CarRepository

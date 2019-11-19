@@ -1,4 +1,4 @@
-package com.app.practice.commons.extensions
+package com.app.practice.commons.callBacks
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView

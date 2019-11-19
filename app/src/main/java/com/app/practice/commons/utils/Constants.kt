@@ -6,6 +6,8 @@ class Constants {
 
         const val TIMEOUT_REQUEST : Long = 30
 
+        const val GPS_REQUEST_LOCATION = 1000
+
         /* Location API Response */
 
         const val LOCATION_API_TAG = "locations.json"

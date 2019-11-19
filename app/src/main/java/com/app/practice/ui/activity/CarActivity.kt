@@ -6,10 +6,14 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import com.app.practice.R
-import com.app.practice.commons.utils.UiHelper
+import com.app.practice.commons.helper.UiHelper
 import com.app.practice.datasource.api.NetworkState
+import com.app.practice.ui.fragment.CarListFragment
+import com.app.practice.ui.fragment.CarMapFragment
+import com.app.practice.ui.viewpager.ViewPagerAdapter
 import com.app.practice.vm.CarViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_car.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,7 +26,9 @@ class CarActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_car)
+
+        checkPlayServicesAvailable()
 
         /*
         * Check Internet Connection
@@ -31,6 +37,39 @@ class CarActivity : AppCompatActivity() {
         if (uiHelper.getConnectivityStatus()) configureObservables()
         else uiHelper.showSnackBar(car_rootView,
             resources.getString(R.string.error_message_network))
+    }
+
+    /*
+     * Checking out is Google Play Services app is installed or not.
+     * */
+
+    private fun checkPlayServicesAvailable() {
+        if(!uiHelper.isPlayServicesAvailable()) {
+            uiHelper.toast(resources.getString(R.string.play_service_not_installed))
+            finish()
+        }
+    }
+
+    private fun setupViewPager() {
+
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(CarMapFragment(), resources.getString(R.string.map))
+        adapter.addFragment(CarListFragment(), resources.getString(R.string.list))
+        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+
+        viewPager.adapter = adapter
+        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
+                //setCurrentItem is used to visible Item of View Pager of Selected Tab Position.
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+
+        tabLayout.setupWithViewPager(viewPager)
     }
 
     private fun configureObservables() {
@@ -42,6 +81,8 @@ class CarActivity : AppCompatActivity() {
                 Log.e(TAG,"CarData address Latitude: ${it[0].coordinates?.get(0)}")
                 Log.e(TAG,"CarData address Longitude: ${it[0].coordinates?.get(1)}")
                 Log.e(TAG,"CarData Name: ${it[0].name}")
+
+                if(it.isNotEmpty()) setupViewPager()
             }
         })
 

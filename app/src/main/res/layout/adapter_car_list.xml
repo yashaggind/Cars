@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.text.TextUtils"/>
+
+        <variable
+            name="placeMarks"
+            type="com.app.practice.domain.entities.PlaceMarks"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="@style/MatchWidth"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_margin="@dimen/dimen_10dp"
+        app:cardElevation="@dimen/dimen_8dp"
+        app:cardCornerRadius="@dimen/dimen_8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchWidth"
+            android:layout_margin="@dimen/dimen_10dp">
+
+            <TextView
+                android:id="@+id/tv_car_name"
+                style="@style/WrapWidthHeight"
+                android:textSize="@dimen/text_size_14sp"
+                android:visibility="@{TextUtils.isEmpty(placeMarks.name) ? View.GONE : View.VISIBLE}"
+                android:text="@{@string/name+` : ` + placeMarks.name}"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_car_address"
+                style="@style/WrapWidthHeight"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:textSize="@dimen/text_size_14sp"
+                android:visibility="@{TextUtils.isEmpty(placeMarks.address) ? View.GONE : View.VISIBLE}"
+                android:text="@{@string/address+` : ` + placeMarks.address}"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_car_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_car_name"
+                app:layout_constraintVertical_chainStyle="packed"/>
+
+            <TextView
+                android:id="@+id/tv_car_exterior"
+                style="@style/WrapWidthHeight"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:textSize="@dimen/text_size_14sp"
+                android:visibility="@{TextUtils.isEmpty(placeMarks.exterior) ? View.GONE : View.VISIBLE}"
+                android:text="@{@string/car_exterior+` : ` + placeMarks.exterior}"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_car_address"
+                app:layout_constraintTop_toBottomOf="@+id/tv_car_address"
+                app:layout_constraintVertical_chainStyle="packed"/>
+
+            <TextView
+                android:id="@+id/tv_car_interior"
+                style="@style/WrapWidthHeight"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:textSize="@dimen/text_size_14sp"
+                android:visibility="@{TextUtils.isEmpty(placeMarks.interior) ? View.GONE : View.VISIBLE}"
+                android:text="@{@string/car_interior+` : ` + placeMarks.interior}"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_car_exterior"
+                app:layout_constraintTop_toBottomOf="@+id/tv_car_exterior"
+                app:layout_constraintVertical_chainStyle="packed"/>
+
+            <TextView
+                android:id="@+id/tv_car_latitude"
+                style="@style/WrapWidthHeight"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:textSize="@dimen/text_size_14sp"
+                app:latitude="@{placeMarks.coordinates}"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_car_interior"
+                app:layout_constraintTop_toBottomOf="@+id/tv_car_interior"
+                app:layout_constraintVertical_chainStyle="packed"/>
+
+            <TextView
+                android:id="@+id/tv_car_longitude"
+                style="@style/WrapWidthHeight"
+                android:layout_marginTop="@dimen/dimen_5dp"
+                android:textSize="@dimen/text_size_14sp"
+                app:longitude="@{placeMarks.coordinates}"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_car_latitude"
+                app:layout_constraintTop_toBottomOf="@+id/tv_car_latitude"
+                app:layout_constraintVertical_chainStyle="packed"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

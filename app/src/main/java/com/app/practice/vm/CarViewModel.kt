@@ -14,14 +14,14 @@ class CarViewModel(private val carUseCase: CarUseCase): BaseViewModel() {
 
     // UTILS ---
     init {
-        handleCategoryLoad()
+        handleCarLoad()
     }
 
-    private fun handleCategoryLoad() {
-        ioScope.launch { updateCategoryLiveData(carUseCase.execute()) }
+    private fun handleCarLoad() {
+        ioScope.launch { updateCarLiveData(carUseCase.execute()) }
         networkState = carUseCase.getNetworkState()
     }
 
-    private fun updateCategoryLiveData(result: List<PlaceMarks>)
+    private fun updateCarLiveData(result: List<PlaceMarks>)
             = carData.postValue(result)
 }

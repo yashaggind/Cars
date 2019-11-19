@@ -3,7 +3,34 @@
 
     <string name="google_map_api_key">AIzaSyBJ9LFqXYNtR5y8YizaWkEn7nM1VuYbitI</string>
 
-    <string name="error_message_network">Network error.Please check your Internet connection</string>
+    <!-- Security Permission Strings. -->
 
+    <string name="permission_denied">Permission Denied</string>
+    <string name="i_am_sure">I AM SURE</string>
+    <string name="re_try">RE-TRY</string>
+    <string name="access_fine_loc">Without this permission, you won\'t be able to get your Location. Are you sure you want to Deny this permission.?</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="permission_required_dialog_title">Permission Required</string>
+    <string name="permission_denied_dialog_info">Without accepting Location permission you can\'t proceed further</string>
+
+    <string name="need_location">Enable GPS SERVICE</string>
+    <string name="location_content">App needs your location in order to find nearby cars.</string>
+    <string name="turn_on">Turn On</string>
+
+    <!-- Car Activity-->
+
+    <string name="play_service_not_installed">Play services is not installed!</string>
+    <string name="error_message_network">Network error.Please check your Internet connection</string>
+    <string name="list">List</string>
+    <string name="map">Map</string>
+
+    <!-- CarList Fragment-->
+
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="car_exterior">Exterior</string>
+    <string name="car_interior">Interior</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
 
 </resources>
