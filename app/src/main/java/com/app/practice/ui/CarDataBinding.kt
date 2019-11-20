@@ -9,7 +9,7 @@ fun latitude(textView : TextView, coordinates: Array<Double>?) {
 
     coordinates?.let {
         val latitude  = textView.context.resources.getString(R.string.latitude)
-        val value = coordinates[0].toString()
+        val value = coordinates[1].toString()
         textView.text = "$latitude : $value"
     }
 }
@@ -19,7 +19,7 @@ fun longitude(textView : TextView, coordinates: Array<Double>?) {
 
     coordinates?.let {
         val longitude  = textView.context.resources.getString(R.string.longitude)
-        val value = coordinates[1].toString()
+        val value = coordinates[0].toString()
         textView.text = "$longitude : $value"
     }
 }

@@ -1,5 +1,6 @@
 package com.app.practice.ui.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,11 +18,12 @@ import kotlinx.android.synthetic.main.activity_car.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CarActivity : AppCompatActivity() {
+class CarActivity : AppCompatActivity(){
 
     // FOR DATA ---
     private val carVM: CarViewModel by viewModel()
     private val uiHelper: UiHelper by inject()
+    private lateinit var adapter : ViewPagerAdapter
     private val TAG : String = "CarActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,9 +52,34 @@ class CarActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRequestPermissionsResult(requestCode : Int, permissions : Array<out String>, grantResults : IntArray) {
+        permissionsResult(requestCode,permissions,grantResults)
+    }
+
+    private fun permissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        val pos = viewPager.currentItem
+        val fragment = adapter.getItem(pos)
+        if(pos == 0) fragment.onRequestPermissionsResult(requestCode,permissions,grantResults)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        activityResult(requestCode, resultCode, data)
+    }
+
+    private fun activityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val pos = viewPager.currentItem
+        val fragment = adapter.getItem(pos)
+        if(pos == 0) fragment.onActivityResult(requestCode,resultCode,data)
+    }
+
     private fun setupViewPager() {
 
-        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(CarMapFragment(), resources.getString(R.string.map))
         adapter.addFragment(CarListFragment(), resources.getString(R.string.list))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
