@@ -12,16 +12,13 @@ disappear other cars and tapping again to show the hidden car again.
 * __[Kotlin Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)__
 * __[Koin](https://github.com/InsertKoinIO/koin)__
 * __[Android Material Design](https://material.io/components/)__
-* __[Google Maps](https://developers.google.com/maps/documentation/android-sdk/intro)__ Google Maps
+* __[Google Maps](https://developers.google.com/maps/documentation/android-sdk/intro)__
 * __[Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)__
 * __[Instrumented Unit Testing](https://developer.android.com/training/testing/unit-testing/instrumented-unit-tests)__
 
 Above Features are used to make code simple, generic, understandable, clean and easily maintainable
 for future development. Especially **Koin** for dependency injection and **Kotlin Coroutines** for
 asynchronous API call.
-
-This application supports the screen rotation without losing the data and also use **Constraintlayout** to design layout which
-gives better **UI support for both Mobile and Tablet**, and even when the screen rotates.
 
 As this app developed as a production-ready app. So I had enabled the **Proguard** along with minifyEnabled
 and shrinkResources True in released version along with basic support for **Android App Bundle**.
