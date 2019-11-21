@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +48,7 @@ class CarMapFragment : Fragment(), OnMapReadyCallback,PermissionHelper.OnPermiss
     private var isPermissionPermanentlyDenied = false
     private lateinit var markersArrayList : ArrayList<Marker>
     private var marker : Marker? = null
-    private val TAG : String = "CarActivity"
+    private var firstTap : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -143,16 +142,10 @@ class CarMapFragment : Fragment(), OnMapReadyCallback,PermissionHelper.OnPermiss
     // Start Observing the User Current Location and set the marker to it.
     private fun subscribeLocationObserver()
     {
-        Log.e(TAG,"CarMapFragment subscribeLocationObserver")
-
         // OBSERVABLES ---
         locationVM.currentLocation.nonNull().observe(this, Observer {
 
             currentLatLng = googleMapHelper.getLatLng(it.latitude,it.longitude)
-
-            Log.e(TAG,"CarMapFragment latitude: ${it.latitude}")
-            Log.e(TAG,"CarMapFragment longitude: ${it.longitude}")
-
             currentLatLng?.let{ data -> mapSetUp(data) }
 
             locationVM.stopLocationUpdates()
@@ -173,12 +166,9 @@ class CarMapFragment : Fragment(), OnMapReadyCallback,PermissionHelper.OnPermiss
                     markersArrayList = ArrayList()
                     for (i in it.indices)
                     {
-                        googleMap?.addMarker(it[i].let { data ->
-                            googleMapHelper.addMarker(data)})?.tag = it[i].name
-
-                        marker = googleMap?.addMarker(it[i].let { data ->
-                            googleMapHelper.addMarker(data)})
-
+                        val markerOptions = googleMapHelper.markerOptions(it[i])
+                        marker = googleMap?.addMarker(markerOptions)
+                        marker?.tag = it[i].name
                         marker?.let { data -> markersArrayList.add(data) }
                     }
                 }
@@ -195,18 +185,13 @@ class CarMapFragment : Fragment(), OnMapReadyCallback,PermissionHelper.OnPermiss
     /** Called when the user clicks a marker. */
     override fun onMarkerClick(marker : Marker?) : Boolean {
 
-        Log.e(TAG,"onMarkerClick marker Tag: ${marker?.tag}")
+        if(marker?.tag != null) {
+            for(item in markersArrayList.indices)
+                if (markersArrayList[item].title != marker.tag) markersArrayList[item].isVisible = !firstTap
 
-        for (item in markersArrayList.indices) {
-            Log.e(TAG,"onMarkerClick ArrayList Tag id: ${markersArrayList[item].title}")
-
-            if (markersArrayList[item].title != marker?.tag) {
-                markersArrayList[item].setVisible(false)
-                Log.e(TAG,"onMarkerClick marker if Tag: ${markersArrayList[item].title}")
-            }
-            else Log.e(TAG,"onMarkerClick marker else Tag: ${markersArrayList[item].title}")
+            firstTap = !firstTap
+            if(firstTap) return true
         }
-
         return false
     }
 }

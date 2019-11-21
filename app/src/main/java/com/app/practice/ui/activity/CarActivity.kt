@@ -3,7 +3,6 @@ package com.app.practice.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import com.app.practice.R
@@ -24,7 +23,6 @@ class CarActivity : AppCompatActivity(){
     private val carVM: CarViewModel by viewModel()
     private val uiHelper: UiHelper by inject()
     private lateinit var adapter : ViewPagerAdapter
-    private val TAG : String = "CarActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,11 +102,6 @@ class CarActivity : AppCompatActivity(){
         carVM.carData.observe(this, Observer {
 
             it?.let {
-                Log.e(TAG,"CarData address: ${it[0].address}")
-                Log.e(TAG,"CarData address Latitude: ${it[0].coordinates?.get(0)}")
-                Log.e(TAG,"CarData address Longitude: ${it[0].coordinates?.get(1)}")
-                Log.e(TAG,"CarData Name: ${it[0].name}")
-
                 if(it.isNotEmpty()) setupViewPager()
             }
         })

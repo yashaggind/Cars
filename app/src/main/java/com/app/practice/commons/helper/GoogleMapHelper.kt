@@ -12,7 +12,7 @@ class GoogleMapHelper {
      * @return the [MarkerOptions] with given properties added to it.
      */
 
-    fun addMarker(placeMarks: PlaceMarks): MarkerOptions? =
+    fun markerOptions(placeMarks: PlaceMarks): MarkerOptions? =
         placeMarks.let {
             placeMarks.coordinates?.get(1)?.let { data ->
                 LatLng(data, placeMarks.coordinates[0]).let {
